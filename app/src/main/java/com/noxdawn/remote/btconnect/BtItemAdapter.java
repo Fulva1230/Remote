@@ -25,7 +25,7 @@ public class BtItemAdapter extends BaseAdapter {
     private final BluetoothAdapter bluetoothAdapter;
     private final List<BluetoothDevice> pairedDevices;
     private final Activity parentActivity;
-    private static final UUID MY_UUID = UUID.fromString("00001101-0000-1000-8000-00805F9B34FB");
+    private static final UUID SPP_UUID = UUID.fromString("00001101-0000-1000-8000-00805F9B34FB");
     
     public BtItemAdapter(BluetoothAdapter bluetoothAdapter, Activity parentActivity) {
         this.bluetoothAdapter = bluetoothAdapter;
@@ -59,9 +59,9 @@ public class BtItemAdapter extends BaseAdapter {
                 BluetoothDevice device = bluetoothAdapter.getRemoteDevice(pairedDevices.get(position).getAddress());
                 BluetoothSocket socket = null;
                 try {
-                    Thread acceptThread = new AcceptThread(bluetoothAdapter, MY_UUID, pairedDevices.get(position).getName());
-                    acceptThread.start();
-                    socket = device.createRfcommSocketToServiceRecord(MY_UUID);
+                    // Thread acceptThread = new AcceptThread(bluetoothAdapter, SPP_UUID, pairedDevices.get(position).getName());
+                    // acceptThread.start();
+                    socket = device.createInsecureRfcommSocketToServiceRecord(SPP_UUID);
                     socket.connect();
                     Intent intent = new Intent(parentActivity, Controller.class);
                     parentActivity.startActivity(intent);
