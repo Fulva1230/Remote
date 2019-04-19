@@ -10,6 +10,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
+import android.widget.Toast;
 import com.noxdawn.remote.Controller;
 import com.noxdawn.remote.R;
 
@@ -17,6 +18,8 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
+
+import static android.widget.Toast.LENGTH_SHORT;
 
 public class BtItemAdapter extends BaseAdapter {
     private final BluetoothAdapter bluetoothAdapter;
@@ -60,6 +63,8 @@ public class BtItemAdapter extends BaseAdapter {
                     Intent intent = new Intent(parentActivity, Controller.class);
                     parentActivity.startActivity(intent);
                 } catch (IOException e) {
+                    Toast toastMessage = Toast.makeText(parentActivity, "connect attempt failed", LENGTH_SHORT);
+                    toastMessage.show();
                     e.printStackTrace();
                 }
             });
