@@ -1,25 +1,32 @@
 package com.noxdawn.remote.btconnect;
 
+import android.app.Activity;
 import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothDevice;
+import android.bluetooth.BluetoothSocket;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
+import com.noxdawn.remote.Controller;
 import com.noxdawn.remote.R;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Set;
+import java.util.UUID;
 
 public class BtItemAdapter extends BaseAdapter {
-    final BluetoothAdapter bluetoothAdapter;
+    private final BluetoothAdapter bluetoothAdapter;
     private final List<BluetoothDevice> pairedDevices;
+    private final Activity parentActivity;
     
-    public BtItemAdapter(BluetoothAdapter bluetoothAdapter) {
+    public BtItemAdapter(BluetoothAdapter bluetoothAdapter, Activity parentActivity) {
         this.bluetoothAdapter = bluetoothAdapter;
         pairedDevices = new ArrayList<>(bluetoothAdapter.getBondedDevices());
+        this.parentActivity = parentActivity;
     }
     
     @Override
@@ -44,6 +51,18 @@ public class BtItemAdapter extends BaseAdapter {
             convertView = inflater.inflate(R.layout.item, parent, false);
             ((TextView) convertView.findViewById(R.id.textView))
                     .setText(pairedDevices.get(position).getName());
+            convertView.setOnClickListener((v) -> {
+                BluetoothDevice device = bluetoothAdapter.getRemoteDevice(pairedDevices.get(position).getAddress());
+                BluetoothSocket socket = null;
+                try {
+                    socket = device.createRfcommSocketToServiceRecord(UUID.randomUUID());
+                    socket.connect();
+                    Intent intent = new Intent(parentActivity, Controller.class);
+                    parentActivity.startActivity(intent);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            });
         }
         return convertView;
     }

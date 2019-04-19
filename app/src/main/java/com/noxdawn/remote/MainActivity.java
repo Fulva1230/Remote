@@ -2,11 +2,10 @@ package com.noxdawn.remote;
 
 import android.bluetooth.BluetoothAdapter;
 import android.content.Intent;
-import android.view.View;
+import android.os.Bundle;
 import android.widget.ListView;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
-import android.os.Bundle;
 import com.noxdawn.remote.btconnect.BtItemAdapter;
 
 public class MainActivity extends AppCompatActivity {
@@ -34,7 +33,7 @@ public class MainActivity extends AppCompatActivity {
     
     private void initBluetooth() {
         ListView btItems = findViewById(R.id.btItems);
-        btItems.setAdapter(new BtItemAdapter(bluetoothAdapter));
+        btItems.setAdapter(new BtItemAdapter(bluetoothAdapter, this));
     }
     
     @Override
