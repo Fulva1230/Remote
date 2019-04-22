@@ -5,17 +5,16 @@ import android.bluetooth.BluetoothDevice;
 import android.bluetooth.BluetoothSocket;
 import android.os.Bundle;
 import android.widget.TextView;
-import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 
-import java.io.IOException;
-
-import static android.widget.Toast.LENGTH_SHORT;
-import static com.noxdawn.remote.btconnect.BtItemAdapter.*;
+import static com.noxdawn.remote.btconnect.BtItemAdapter.BLUETOOTH_ADDRESS;
+import static com.noxdawn.remote.btconnect.BtItemAdapter.BLUETOOTH_NAME;
 
 public class Controller extends AppCompatActivity {
     
     private BluetoothSocket socket;
+    private JoystickWrapper leftJoy;
+    private JoystickWrapper rightJoy;
     
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -25,18 +24,20 @@ public class Controller extends AppCompatActivity {
             TextView bluetoothInform = findViewById(R.id.controller_text);
             bluetoothInform.setText(String.format("connecting to : %s", getIntent().getStringExtra(BLUETOOTH_NAME)));
             BluetoothDevice device = BluetoothAdapter.getDefaultAdapter().getRemoteDevice(getIntent().getStringExtra(BLUETOOTH_ADDRESS));
-            try {
-                socket = device.createInsecureRfcommSocketToServiceRecord(SPP_UUID);
-                socket.connect();
-            } catch (IOException e) {
-                Toast toastMessage = Toast.makeText(this, "connect attempt failed", LENGTH_SHORT);
-                toastMessage.show();
-                e.printStackTrace();
-                finish();
-            }
+            // try {
+            //     socket = device.createInsecureRfcommSocketToServiceRecord(SPP_UUID);
+            //     socket.connect();
+            // } catch (IOException e) {
+            //     Toast toastMessage = Toast.makeText(this, "connect attempt failed", LENGTH_SHORT);
+            //     toastMessage.show();
+            //     e.printStackTrace();
+            //     finish();
+            // }
             bluetoothInform.setText(String.format("connected to :　%s", getIntent().getStringExtra(BLUETOOTH_NAME)));
         } else {
             finish();
         }
+    
+        leftJoy = new JoystickWrapper(findViewById(R.id.leftJoy), null, findViewById(R.id.leftJoyInform));
     }
 }
