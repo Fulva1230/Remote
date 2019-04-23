@@ -20,7 +20,7 @@ deploy:
   provider: releases
   api_key: "52f269014a8e8498a3a2ab56bdbcfac29caf9ebd"
   file_glob: true
-  file: "app/build/outputs/apk/*"
+  file: "app/build/outputs/apk/release/*"
   skip_cleanup: true
   on:
     tags: true
