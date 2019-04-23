@@ -5,10 +5,13 @@ import android.bluetooth.BluetoothDevice;
 import android.bluetooth.BluetoothSocket;
 import android.os.Bundle;
 import android.widget.TextView;
+import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 
-import static com.noxdawn.remote.btconnect.BtItemAdapter.BLUETOOTH_ADDRESS;
-import static com.noxdawn.remote.btconnect.BtItemAdapter.BLUETOOTH_NAME;
+import java.io.IOException;
+
+import static android.widget.Toast.LENGTH_SHORT;
+import static com.noxdawn.remote.btconnect.BtItemAdapter.*;
 
 public class Controller extends AppCompatActivity {
     
@@ -24,20 +27,32 @@ public class Controller extends AppCompatActivity {
             TextView bluetoothInform = findViewById(R.id.controller_text);
             bluetoothInform.setText(String.format("connecting to : %s", getIntent().getStringExtra(BLUETOOTH_NAME)));
             BluetoothDevice device = BluetoothAdapter.getDefaultAdapter().getRemoteDevice(getIntent().getStringExtra(BLUETOOTH_ADDRESS));
-            // try {
-            //     socket = device.createInsecureRfcommSocketToServiceRecord(SPP_UUID);
-            //     socket.connect();
-            // } catch (IOException e) {
-            //     Toast toastMessage = Toast.makeText(this, "connect attempt failed", LENGTH_SHORT);
-            //     toastMessage.show();
-            //     e.printStackTrace();
-            //     finish();
-            // }
+            try {
+                socket = device.createRfcommSocketToServiceRecord(SPP_UUID);
+                socket.connect();
+            } catch (IOException e) {
+                Toast toastMessage = Toast.makeText(this, "connect attempt failed", LENGTH_SHORT);
+                toastMessage.show();
+                e.printStackTrace();
+                finish();
+            }
             bluetoothInform.setText(String.format("connected to :　%s", getIntent().getStringExtra(BLUETOOTH_NAME)));
         } else {
             finish();
         }
     
         leftJoy = new JoystickWrapper(findViewById(R.id.leftJoy), null, findViewById(R.id.leftJoyInform));
+    }
+    
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        try {
+            socket.close();
+        } catch (IOException e) {
+            Toast toastMessage = Toast.makeText(this, "failed to disconnect the device", LENGTH_SHORT);
+            toastMessage.show();
+            e.printStackTrace();
+        }
     }
 }

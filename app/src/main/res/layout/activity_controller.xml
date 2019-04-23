@@ -8,8 +8,8 @@
         tools:context=".Controller">
 
     <io.github.controlwear.virtual.joystick.android.JoystickView
-            android:layout_width="wrap_content"
-            android:layout_height="100dp"
+            android:layout_width="190dp"
+            android:layout_height="197dp"
             app:JV_buttonColor="#FF6E40"
             app:JV_buttonSizeRatio="15%"
             app:JV_borderColor="#00796B"
@@ -39,8 +39,8 @@
             app:layout_constraintHorizontal_bias="0.25"/>
 
     <io.github.controlwear.virtual.joystick.android.JoystickView
-            android:layout_width="wrap_content"
-            android:layout_height="100dp"
+            android:layout_width="190dp"
+            android:layout_height="356dp"
             app:JV_buttonColor="#FF6E40"
             app:JV_buttonSizeRatio="15%"
             app:JV_borderColor="#00796B"
