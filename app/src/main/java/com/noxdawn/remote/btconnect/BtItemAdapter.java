@@ -57,7 +57,6 @@ public class BtItemAdapter extends BaseAdapter {
                 intent.putExtra(BLUETOOTH_NAME, pairedDevices.get(position).getName());
                 intent.putExtra(BLUETOOTH_ADDRESS, pairedDevices.get(position).getAddress());
                 parentActivity.startActivity(intent);
-                
             });
         }
         return convertView;
