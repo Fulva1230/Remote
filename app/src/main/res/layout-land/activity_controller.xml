@@ -31,9 +31,10 @@
             android:layout_marginStart="175dp"
             app:layout_constraintEnd_toEndOf="parent"
             android:layout_marginEnd="178dp"
-            android:layout_marginTop="28dp"
+            android:layout_marginTop="16dp"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintHorizontal_bias="0.503"/>
+            app:layout_constraintHorizontal_bias="0.503"
+            android:textAlignment="center"/>
 
     <io.github.controlwear.virtual.joystick.android.JoystickView
             android:layout_width="190dp"
@@ -67,5 +68,24 @@
             android:layout_marginEnd="32dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintBottom_toTopOf="@+id/rightJoy"/>
+
+    <SeekBar
+            android:layout_width="0dp"
+            android:layout_height="33dp"
+            android:id="@+id/seekBar"
+            app:layout_constraintEnd_toEndOf="@+id/setting"
+            app:layout_constraintStart_toEndOf="@+id/leftJoy"
+            android:layout_marginStart="8dp"
+            android:layout_marginBottom="8dp"
+            app:layout_constraintBottom_toTopOf="@+id/setting"/>
+
+    <Button
+            android:text="SET"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/setting"
+            app:layout_constraintStart_toEndOf="@+id/leftJoy"
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:layout_marginBottom="32dp"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
