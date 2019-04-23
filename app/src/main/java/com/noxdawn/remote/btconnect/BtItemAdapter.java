@@ -17,7 +17,6 @@ import java.util.List;
 import java.util.UUID;
 
 public class BtItemAdapter extends BaseAdapter {
-    private final BluetoothAdapter bluetoothAdapter;
     private final List<BluetoothDevice> pairedDevices;
     private final Activity parentActivity;
     public static final UUID SPP_UUID = UUID.fromString("00001101-0000-1000-8000-00805F9B34FB");
@@ -25,7 +24,6 @@ public class BtItemAdapter extends BaseAdapter {
     public static final String BLUETOOTH_NAME = "bluetooth_name";
     
     public BtItemAdapter(BluetoothAdapter bluetoothAdapter, Activity parentActivity) {
-        this.bluetoothAdapter = bluetoothAdapter;
         pairedDevices = new ArrayList<>(bluetoothAdapter.getBondedDevices());
         this.parentActivity = parentActivity;
     }
