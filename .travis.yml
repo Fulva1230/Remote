@@ -1,26 +1,40 @@
 language: android
+env:
+  global:
+    - ANDROID_API=28
+    - ANDROID_BUILD_TOOLS=27.0.3
+    - ADB_INSTALL_TIMEOUT=5
+    - secure: yvY3nB9X0cmX3JuQ2zk8t3JxJjv9D8qjxUFeb1HjbG7RGa1/sDFIf0p7FwKxIpUZWaYZ7ix4p2rRMxxfpp0NvN/QZ8TdW0HdyhBogzbhNcINjwlECdBLJ276tXNezw1j59tZOYVA2FUQe63ZA/j2ce7NOtQdrX2CUyzIACoZQYeLwbDw9SLXlK0KVl6jEMUwiTMpHrso2+J0FLH4c4gz5F6NtymePyVswVS/qvywPvaX+xwGs+h9yua4ndO2i9MEkzkJ3e/6zh23QOV8vjVBFySfA5mF7dnBOix9I7f08KJhRm44ZdYKn3bI3DSICdcxTxrvbeya6v+sMaV/VBfFanhVg6L1lBMk636HSPxNPfrO6df1MD+QlYE4uXboARulLlO4zh6Wdt+I5WVR3Ll13Y3/P5/2qBeZIlL/+qHQQTZhEjW9a9ARt+fDxI8f2e4Met4R+Tk5WM58jM8CO0gKtetE1LC899ABTBPpwoXC2tCl9m13Lg5D6tN1JxoIeUlEk3E6D443i4I8USPuiV3hwxGd9wKDm5ZVA+3VbPU1y6BJXKbZEJRUniPbXSvFBXuhOqb5GZB77Zr5ewInvaXxMCnZloLwbT0sxHdkRK3JBmge3wWHDr91hUr6j/NYtYQU7H9nni/n4V8II3+1Y74tADlzipb76HZAuOHydVNxhUk=
+    - secure: ossDuGtakGvr4hTLMGkHw3fdFokYPU/7Hrw3UUG0DRvrC3k63NcfKFF5B0OwfEDExIINKQRHITZSZMJjsG4TWN5mS4fdJS+EJJNR+lo9xvtT98GuieXVPChg1LMvfLOWRoVDz3hYwS6/rV0qjdTygcEVv7r7Y6ePfOgWwOhCdiOtji+q4lCf5GNp8n3R4B0+xsjIjwSn4BqiSBtrWyHrOwmOFwGeOEIN1A73o4FPhXKIMZK7FX8nUVBQ3UwTT5sx2d0GC4soOTjQgeNNayELCwEOc6UgYytYkBT0O+WkHvYOO/JpfC0RApnaRdQTuZJvhLvmfVT2xBNxyfzSl+DQS+mLk4h5CSZW1r/tojovM5nr1axM9vpdsLCNSrSHnoR3a0o+QYXLq29obadOW7e0S4U4oM7MIlGlizlIqVHUlgWjFf4LUeWwiRjPGPuDet02U4PbBChhegLmA+tdUjuIE8zaAr8MrQArH5fN3fbDkYsENp6kvrttV/IvkqwWAhWdr8MLvAFIECR3rleDvuWOn+oQ/PJl2EGGcjtGJDoDlAckQN5OjxZQyuy+d7hLwn3dxAo0/Sl12qR2Qc5mxs6u8ilsm8RivoujkvP+VNJjK6lfltWlUTz9yjGDPZXuikIT1bynevHHsoGhU7ky4V7yQKtGq3BoJuDwHvdetoMKbZU=
+before_cache:
+  - rm -f  $HOME/.gradle/caches/modules-2/modules-2.lock
+  - rm -rf $HOME/.gradle/caches/*/plugin-resolution/
+cache:
+  directories:
+    - "$HOME/.gradle/caches/"
+    - "$HOME/.gradle/wrapper/"
+    - "$HOME/.android/build-cache"
 android:
   components:
-    # Uncomment the lines below if you want to
-    # use the latest revision of Android SDK Tools
-    # - tools
-    # - platform-tools
-
-    # The BuildTools version used by your project
-    #    - build-tools-26.0.2
     - Build-Tools-27.0.3
-
-    # The SDK version used to compile your project
-    - android-26
-    - android-27
     - android-28
 script:
-  - ./gradlew assembleRelease
+  - "./gradlew assembleRelease"
+before_deploy:
+  - openssl aes-256-cbc -K $encrypted_0bc9920312ca_key -iv $encrypted_0bc9920312ca_iv -in keystore.jks.enc -out keystore.jks -d
+  - cd app/build/outputs/apk/release
+  - jarsigner -verbose -sigalg SHA1withRSA -digestalg SHA1 -keystore ${TRAVIS_BUILD_DIR}/keystore.jks -storepass $storepass -keypass $keypass app-release-unsigned.apk key0
+  - jarsigner -verify app-release-unsigned.apk
+  - "${ANDROID_HOME}/build-tools/${ANDROID_BUILD_TOOLS}/zipalign -v 4 app-release-unsigned.apk TravisAndroid.apk"
+  - cd -
+  - scripts/tag.sh
 deploy:
   provider: releases
-  api_key: "52f269014a8e8498a3a2ab56bdbcfac29caf9ebd"
+  api_key: 52f269014a8e8498a3a2ab56bdbcfac29caf9ebd
   file_glob: true
-  file: "app/build/outputs/apk/release/*"
+  file: app/build/outputs/apk/release/*
   skip_cleanup: true
   on:
     tags: true
+dd:
+  secure: mJ64QbPOi/G24MA1v07Dro29l4GFFCX+gJQg1fPPFvrumbBjP14eE4ZMUIcQ8/fF2xrI1tUjwHc7ZdTDOBoDpFxJa4XuI6/TTamaWnEHSP3RJL9XMA6gZRj7NrpFd2wf6KMQNseAdyh9UMo7W6Xjd9EUbPdxDyF2en2ucwtCjqIuaX6/dvlhpalW1EG4roW0nPGXLaF3l61XgyZ77qlkBIkQ2hZyTS6lDu/e6leNJucUyPOc2xcURZavqsdoygHE4dLhA06DiGd26tnzx+Ux854qV7VyaJ0jKdOa5dNxUKPSgiI3Hk7SuR4jURE+SbAfYR6EfdIBuxwij54wNqJu9NXLW2sioTNSdFs5ANR3ehplN5vON0KwdUPNGqUklysvCcO5+M/kn642P6iCmQZKpOsWHRnf5/++I9+yIX2eODVySJID9YDgMenVJBzcEC8zg8rkQgDLc3ueVrSsV3FSi15U/hm/vPqOk7pkT0DrirnDsMZDj6CHPlSZiUNai8shhLbxghdSPwmwWsn4ZdcqBBFbtcY+Pva8VUk/+YM18zCknmD0ejP0ZVIU7jgFxuCjWgD+72059Eg8DSbce49q2rztWTwQEF9C3blNtEF7Z06eR6A7vlFOf6LNTFem2XfK/C1GmjnfrUERsomXN773dbjwddc5r1SAszT7cGYwskg=
