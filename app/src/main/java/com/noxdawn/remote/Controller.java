@@ -30,6 +30,8 @@ public class Controller extends AppCompatActivity {
             try {
                 socket = device.createRfcommSocketToServiceRecord(SPP_UUID);
                 socket.connect();
+                leftJoy = new JoystickWrapper(findViewById(R.id.leftJoy), socket.getOutputStream(), findViewById(R.id.leftJoyInform), "left");
+                rightJoy = new JoystickWrapper(findViewById(R.id.rightJoy), socket.getOutputStream(), findViewById(R.id.rightJoyInform), "right");
             } catch (IOException e) {
                 Toast toastMessage = Toast.makeText(this, "connect attempt failed", LENGTH_SHORT);
                 toastMessage.show();
@@ -41,7 +43,6 @@ public class Controller extends AppCompatActivity {
             finish();
         }
     
-        leftJoy = new JoystickWrapper(findViewById(R.id.leftJoy), null, findViewById(R.id.leftJoyInform));
     }
     
     @Override
