@@ -29,13 +29,13 @@ before_deploy:
     -storepass $storepass -keypass $keypass app-release-unsigned.apk key0
   - jarsigner -verify app-release-unsigned.apk
   - "${ANDROID_HOME}/build-tools/${ANDROID_BUILD_TOOLS}/zipalign -v 4 app-release-unsigned.apk
-  TravisAndroid.apk"
+  Remote.apk"
   - cd -
 deploy:
   provider: releases
   api_key:
     secure: r5POqVqhJ1YV4JO450Hzeibtk0t30hWuZxU1MBDwNoogYhHd7/RKC9vPtVe37aitmXz7W/RFjLkxhtClSUvzCipFkxNM3YqLcGBhQk2rDzPL3mMm8Cjs8MczcuyOcDtRUEYpOY3n5v/dtAsiT9cyJ5tO6F3G9cDzlbM6NdLIl/QueeTuySL7oUdtTWmqQKJ55Q9Y1GyZwiKUczHO3ZBYySdhocI8j0//QUTsnwLXHAutH8ALz45Fz6XhN7RIYe3yTr7aTusg0qdfY3T79e8Kz0SrllWsUYqmrwvDd8SjlZ3o91wWFm8aXu1fiVhQPH7VXcG5UHh1RsQ19GDt8RHTPtF2CzBAiqShFahTmScq/HYRJ0yyUKQB1LmkUEvAmQrK8Kl50mKjLDtDFTUx/FOfT+gjaJ6PR+qS0483lW8sMX9ACpsrwrmAw4823mBgs/yBXk+53zCGg+z2CZNx4/2fb8iVB4SBpeJFD2LlCyX07meb74tJJn5KTccK9TdEGCWFEXXaLbazjl2mYdJXIfgiEQY3lnYYAjQsrVpvkEaxpQoz3XWe/lKI9gBw04PccCmxKV2h4T4XG18hZ6ub+JHM3+AIh8HAr2+ywespTviran+0XrvaiQRPCK6VP3nnwnvS8YScV4smE/w1O4L4Mrab1tHO5EZ36gKg7FlVIMzgtFo=
-  file: "app/build/outputs/apk/release/TravisAndroid.apk"
+  file: "app/build/outputs/apk/release/Remote.apk"
   overwrite: true
   skip_cleanup: true
   on:
