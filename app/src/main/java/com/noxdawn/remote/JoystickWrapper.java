@@ -20,24 +20,24 @@ public class JoystickWrapper {
         this.inform = inform;
         this.comString = comString;
         joystick.setEnabled(true);
-        joystick.setOnMoveListener(new OnMoveListener());
+        joystick.setOnMoveListener(new OnMoveListener(), 100);
     }
     
     
     private class OnMoveListener implements JoystickView.OnMoveListener {
         @Override
         public void onMove(int angle, int strength) {
-            synchronized (OnMoveListener.class) {
-                int arg = (int) (3 * (Math.sin(Math.toRadians(angle)) * strength));
-                inform.setText(String.valueOf(arg));
-                try {
+            int arg = (int) (3 * (Math.sin(Math.toRadians(angle)) * strength));
+            inform.setText(String.valueOf(arg));
+            try {
+                synchronized (outputStream) {
                     outputStream.write(String.format(Locale.getDefault(), "%s:%d;", comString, arg).getBytes());
                     outputStream.flush();
-                } catch (IOException e) {
-                    Toast message = Toast.makeText(joystick.getContext(), "fail to send message", Toast.LENGTH_SHORT);
-                    message.show();
-                    e.printStackTrace();
                 }
+            } catch (IOException e) {
+                Toast message = Toast.makeText(joystick.getContext(), "fail to send message", Toast.LENGTH_SHORT);
+                message.show();
+                e.printStackTrace();
             }
         }
     }
