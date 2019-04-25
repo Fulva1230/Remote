@@ -4,16 +4,17 @@ import android.widget.TextView;
 import io.github.controlwear.virtual.joystick.android.JoystickView;
 
 import java.io.OutputStream;
+import java.util.concurrent.atomic.AtomicReference;
 
 public class JoystickWrapper {
     private final JoystickView joystick;
     private final TextView inform;
     private final CommandSender commandSender;
     
-    public JoystickWrapper(JoystickView joystick, OutputStream outputStream, TextView inform, String comString) {
+    public JoystickWrapper(JoystickView joystick, AtomicReference<OutputStream> oStreamR, TextView inform, String comString) {
         this.joystick = joystick;
         this.inform = inform;
-        this.commandSender = new CommandSender(comString, outputStream);
+        this.commandSender = new CommandSender(comString, oStreamR);
         joystick.setEnabled(true);
         joystick.setOnMoveListener(new OnMoveListener(), 100);
     }

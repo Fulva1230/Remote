@@ -7,17 +7,22 @@ import android.os.Bundle;
 import android.widget.TextView;
 import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
+import com.noxdawn.remote.btconnect.OStreamFetcher;
 
 import java.io.IOException;
+import java.io.OutputStream;
+import java.util.concurrent.atomic.AtomicReference;
 
 import static android.widget.Toast.LENGTH_SHORT;
-import static com.noxdawn.remote.btconnect.BtItemAdapter.*;
+import static com.noxdawn.remote.btconnect.BtItemAdapter.BLUETOOTH_ADDRESS;
+import static com.noxdawn.remote.btconnect.BtItemAdapter.BLUETOOTH_NAME;
 
 public class Controller extends AppCompatActivity {
     
     private BluetoothSocket socket;
     private JoystickWrapper leftJoy;
     private JoystickWrapper rightJoy;
+    private SeekbarWrapper servo_first;
     
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,18 +32,12 @@ public class Controller extends AppCompatActivity {
             TextView bluetoothInform = findViewById(R.id.controller_text);
             bluetoothInform.setText(String.format("connecting to : %s", getIntent().getStringExtra(BLUETOOTH_NAME)));
             BluetoothDevice device = BluetoothAdapter.getDefaultAdapter().getRemoteDevice(getIntent().getStringExtra(BLUETOOTH_ADDRESS));
-            try {
-                socket = device.createRfcommSocketToServiceRecord(SPP_UUID);
-                socket.connect();
-                leftJoy = new JoystickWrapper(findViewById(R.id.leftJoy), socket.getOutputStream(), findViewById(R.id.leftJoyInform), "left");
-                rightJoy = new JoystickWrapper(findViewById(R.id.rightJoy), socket.getOutputStream(), findViewById(R.id.rightJoyInform), "right");
-            } catch (IOException e) {
-                Toast toastMessage = Toast.makeText(this, "connect attempt failed", LENGTH_SHORT);
-                toastMessage.show();
-                e.printStackTrace();
-                // finish();
-            }
-            bluetoothInform.setText(String.format("connected to :　%s", getIntent().getStringExtra(BLUETOOTH_NAME)));
+            final AtomicReference<OutputStream> oStreamR = new AtomicReference<>();
+            Thread bConne = new Thread(new OStreamFetcher(device, oStreamR, this, bluetoothInform));
+            leftJoy = new JoystickWrapper(findViewById(R.id.leftJoy), oStreamR, findViewById(R.id.leftJoyInform), "left");
+            rightJoy = new JoystickWrapper(findViewById(R.id.rightJoy), oStreamR, findViewById(R.id.rightJoyInform), "right");
+            servo_first = new SeekbarWrapper(findViewById(R.id.servo1), "servo1", oStreamR);
+            bConne.start();
         } else {
             finish();
         }
@@ -49,9 +48,11 @@ public class Controller extends AppCompatActivity {
     protected void onDestroy() {
         super.onDestroy();
         try {
-            socket.close();
+            if (socket != null) {
+                socket.close();
+            }
         } catch (IOException e) {
-            Toast toastMessage = Toast.makeText(this, "failed to disconnect the device", LENGTH_SHORT);
+            Toast toastMessage = Toast.makeText(this, "failed to disconnect from the device", LENGTH_SHORT);
             toastMessage.show();
             e.printStackTrace();
         }

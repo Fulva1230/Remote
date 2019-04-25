@@ -1,20 +1,22 @@
 package com.noxdawn.remote;
 
 import android.content.Context;
+import android.util.Log;
 import android.widget.Toast;
 import androidx.annotation.Nullable;
 
 import java.io.IOException;
 import java.io.OutputStream;
 import java.util.Locale;
+import java.util.concurrent.atomic.AtomicReference;
 
 public class CommandSender {
     private final String identifier;
-    private final OutputStream oStream;
+    private final AtomicReference<OutputStream> oStreamR;
     
-    public CommandSender(String identifier, OutputStream oStream) {
+    public CommandSender(String identifier, AtomicReference<OutputStream> oStreamR) {
         this.identifier = identifier;
-        this.oStream = oStream;
+        this.oStreamR = oStreamR;
     }
     
     public void sendCommand(Context context, @Nullable String... args) {
@@ -27,12 +29,16 @@ public class CommandSender {
             arg.append(args[args.length - 1]);
         }
         try {
+            OutputStream oStream = oStreamR.get();
             synchronized (oStream) {
+                String message = null;
                 if (arg != null) {
-                    oStream.write(String.format(Locale.getDefault(), "%s:%s;", identifier, arg.toString()).getBytes());
+                    message = String.format(Locale.getDefault(), "%s:%s;", identifier, arg.toString());
                 } else {
-                    oStream.write(identifier.getBytes());
+                    message = identifier;
                 }
+                oStream.write(message.getBytes());
+                Log.d("command send:", message);
                 oStream.flush();
             }
         } catch (IOException e) {
