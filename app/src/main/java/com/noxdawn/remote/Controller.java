@@ -36,7 +36,7 @@ public class Controller extends AppCompatActivity {
                 Toast toastMessage = Toast.makeText(this, "connect attempt failed", LENGTH_SHORT);
                 toastMessage.show();
                 e.printStackTrace();
-                finish();
+                // finish();
             }
             bluetoothInform.setText(String.format("connected to :　%s", getIntent().getStringExtra(BLUETOOTH_NAME)));
         } else {
