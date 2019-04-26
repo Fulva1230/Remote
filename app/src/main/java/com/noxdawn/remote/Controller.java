@@ -2,7 +2,6 @@ package com.noxdawn.remote;
 
 import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothDevice;
-import android.bluetooth.BluetoothSocket;
 import android.os.Bundle;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -19,10 +18,10 @@ import static com.noxdawn.remote.btconnect.BtItemAdapter.BLUETOOTH_NAME;
 
 public class Controller extends AppCompatActivity {
     
-    private BluetoothSocket socket;
     private JoystickWrapper leftJoy;
     private JoystickWrapper rightJoy;
     private SeekbarWrapper servo_first;
+    private OStreamFetcher bleStrFet;
     
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,7 +32,8 @@ public class Controller extends AppCompatActivity {
             bluetoothInform.setText(String.format("connecting to : %s", getIntent().getStringExtra(BLUETOOTH_NAME)));
             BluetoothDevice device = BluetoothAdapter.getDefaultAdapter().getRemoteDevice(getIntent().getStringExtra(BLUETOOTH_ADDRESS));
             final AtomicReference<OutputStream> oStreamR = new AtomicReference<>();
-            Thread bConne = new Thread(new OStreamFetcher(device, oStreamR, this, bluetoothInform));
+            bleStrFet = new OStreamFetcher(device, oStreamR, this, bluetoothInform);
+            Thread bConne = new Thread(bleStrFet);
             leftJoy = new JoystickWrapper(findViewById(R.id.leftJoy), oStreamR, findViewById(R.id.leftJoyInform), "left");
             rightJoy = new JoystickWrapper(findViewById(R.id.rightJoy), oStreamR, findViewById(R.id.rightJoyInform), "right");
             servo_first = new SeekbarWrapper(findViewById(R.id.servo1), "servo1", oStreamR);
@@ -48,9 +48,7 @@ public class Controller extends AppCompatActivity {
     protected void onDestroy() {
         super.onDestroy();
         try {
-            if (socket != null) {
-                socket.close();
-            }
+            bleStrFet.close();
         } catch (IOException e) {
             Toast toastMessage = Toast.makeText(this, "failed to disconnect from the device", LENGTH_SHORT);
             toastMessage.show();
