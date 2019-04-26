@@ -88,7 +88,7 @@
             android:layout_marginBottom="32dp"/>
 
     <SeekBar
-            android:layout_height="wrap_content"
+            android:layout_height="20dp"
             android:id="@+id/servo1"
             android:rotation="90"
             android:saveEnabled="false"
@@ -98,5 +98,23 @@
             app:layout_constraintVertical_bias="0.482"
             app:layout_constraintEnd_toEndOf="@+id/rightJoy"
             android:layout_marginEnd="120dp"/>
+
+    <SeekBar
+            android:layout_width="150dp"
+            android:layout_height="20dp"
+            android:id="@+id/servo2"
+            android:rotation="90"
+            app:layout_constraintEnd_toEndOf="@+id/servo1"
+            android:layout_marginEnd="30dp"
+            app:layout_constraintTop_toTopOf="@+id/servo1"/>
+
+    <SeekBar
+            android:layout_width="150dp"
+            android:layout_height="20dp"
+            android:id="@+id/servo3"
+            android:rotation="90"
+            app:layout_constraintTop_toTopOf="@+id/servo1"
+            app:layout_constraintEnd_toEndOf="@+id/servo2"
+            android:layout_marginEnd="30dp"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

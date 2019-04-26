@@ -21,6 +21,8 @@ public class Controller extends AppCompatActivity {
     private JoystickWrapper leftJoy;
     private JoystickWrapper rightJoy;
     private SeekbarWrapper servo_first;
+    private SeekbarWrapper servo_second;
+    private SeekbarWrapper servo_third;
     private OStreamFetcher bleStrFet;
     
     @Override
@@ -34,14 +36,22 @@ public class Controller extends AppCompatActivity {
             final AtomicReference<OutputStream> oStreamR = new AtomicReference<>();
             bleStrFet = new OStreamFetcher(device, oStreamR, this, bluetoothInform);
             Thread bConne = new Thread(bleStrFet);
-            leftJoy = new JoystickWrapper(findViewById(R.id.leftJoy), oStreamR, findViewById(R.id.leftJoyInform), "left");
-            rightJoy = new JoystickWrapper(findViewById(R.id.rightJoy), oStreamR, findViewById(R.id.rightJoyInform), "right");
-            servo_first = new SeekbarWrapper(findViewById(R.id.servo1), "servo1", oStreamR);
+            //initialization of controll views
+            controllViewInit(oStreamR);
             bConne.start();
         } else {
             finish();
         }
     
+    }
+    
+    private void controllViewInit(AtomicReference<OutputStream> oStreamR) {
+        leftJoy = new JoystickWrapper(findViewById(R.id.leftJoy), oStreamR, findViewById(R.id.leftJoyInform), Commands.LEFT);
+        rightJoy = new JoystickWrapper(findViewById(R.id.rightJoy), oStreamR, findViewById(R.id.rightJoyInform), Commands.RIGHT);
+        servo_first = new SeekbarWrapper(findViewById(R.id.servo1), Commands.SERVO_FIRST, oStreamR);
+        servo_second = new SeekbarWrapper(findViewById(R.id.servo2), Commands.SERVO_SECOND, oStreamR);
+        servo_third = new SeekbarWrapper(findViewById(R.id.servo3), Commands.SERVO_THIRD, oStreamR);
+        
     }
     
     @Override
