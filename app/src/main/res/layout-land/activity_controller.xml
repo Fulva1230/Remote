@@ -5,7 +5,8 @@
         xmlns:app="http://schemas.android.com/apk/res-auto"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".Controller">
+        tools:context=".Controller"
+        android:id="@+id/controller">
 
     <io.github.controlwear.virtual.joystick.android.JoystickView
             android:layout_width="190dp"
@@ -17,10 +18,10 @@
             app:JV_borderWidth="4dp"
             app:JV_fixedCenter="false"
             android:id="@+id/leftJoy"
-            android:layout_marginBottom="32dp"
+            android:layout_marginBottom="8dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            android:layout_marginStart="32dp"/>
+            android:layout_marginStart="8dp"/>
 
     <TextView
             android:text="@string/controller"
@@ -46,10 +47,10 @@
             app:JV_borderWidth="4dp"
             app:JV_fixedCenter="false"
             android:id="@+id/rightJoy"
-            android:layout_marginBottom="32dp"
+            android:layout_marginBottom="8dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            android:layout_marginEnd="32dp"/>
+            android:layout_marginEnd="8dp"/>
 
     <TextView
             android:layout_width="157dp"
@@ -57,17 +58,16 @@
             android:orientation="vertical"
             android:id="@+id/leftJoyInform"
             app:layout_constraintBottom_toTopOf="@+id/leftJoy"
-            app:layout_constraintStart_toStartOf="parent"
-            android:layout_marginStart="32dp"/>
+            app:layout_constraintStart_toStartOf="@+id/leftJoy"
+            />
 
     <TextView
             android:layout_width="157dp"
             android:layout_height="0dp"
             android:orientation="vertical"
             android:id="@+id/rightJoyInform"
-            android:layout_marginEnd="32dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintBottom_toTopOf="@+id/rightJoy"/>
+            app:layout_constraintBottom_toTopOf="@+id/rightJoy"
+            app:layout_constraintEnd_toEndOf="@+id/rightJoy"/>
 
     <SeekBar
             android:layout_width="0dp"
@@ -106,7 +106,7 @@
             android:id="@+id/servo2"
             android:rotation="90"
             app:layout_constraintEnd_toEndOf="@+id/servo1"
-            android:layout_marginEnd="30dp"
+            android:layout_marginEnd="50dp"
             app:layout_constraintTop_toTopOf="@+id/servo1"
             android:progress="50"/>
 
@@ -116,8 +116,25 @@
             android:id="@+id/servo3"
             android:rotation="90"
             app:layout_constraintTop_toTopOf="@+id/servo1"
+            android:progress="50"
             app:layout_constraintEnd_toEndOf="@+id/servo2"
-            android:layout_marginEnd="30dp"
-            android:progress="50"/>
+            android:layout_marginEnd="50dp"/>
+
+    <Switch
+            android:text="@string/LEFT_DIR"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/leftChangeDir"
+            app:layout_constraintStart_toStartOf="@+id/leftJoy"
+            app:layout_constraintBottom_toTopOf="@+id/leftJoyInform"
+            />
+
+    <Switch
+            android:text="@string/RIGHT_DIR"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/rightChangeDir"
+            app:layout_constraintEnd_toEndOf="@+id/rightJoy"
+            app:layout_constraintBottom_toTopOf="@+id/rightJoyInform"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
