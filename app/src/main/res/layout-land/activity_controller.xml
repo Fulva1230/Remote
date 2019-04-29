@@ -71,22 +71,12 @@
             app:layout_constraintEnd_toEndOf="@+id/rightJoy"/>
 
     <SeekBar
-            android:layout_width="0dp"
+            android:layout_width="100dp"
             android:layout_height="33dp"
-            android:id="@+id/seekBar"
-            app:layout_constraintEnd_toEndOf="@+id/setting"
-            app:layout_constraintStart_toEndOf="@+id/leftJoy"
-            android:layout_marginBottom="8dp"
-            app:layout_constraintBottom_toTopOf="@+id/setting"/>
-
-    <Button
-            android:text="SET"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/setting"
-            app:layout_constraintStart_toEndOf="@+id/leftJoy"
-            app:layout_constraintBottom_toBottomOf="parent"
-            android:layout_marginBottom="32dp"/>
+            android:id="@+id/threshHold"
+            app:layout_constraintStart_toStartOf="@+id/leftJoy"
+            app:layout_constraintBottom_toTopOf="@+id/leftChangeDir"
+            android:max="200"/>
 
     <SeekBar
             android:layout_height="20dp"

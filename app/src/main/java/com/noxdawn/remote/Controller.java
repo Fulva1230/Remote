@@ -3,10 +3,12 @@ package com.noxdawn.remote;
 import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothDevice;
 import android.os.Bundle;
-import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
+import com.noxdawn.remote.behaviorparameter.BehaviorParameter;
+import com.noxdawn.remote.behaviorparameter.BoolCheBarParameter;
+import com.noxdawn.remote.behaviorparameter.IntSeekbarParameter;
 import com.noxdawn.remote.btconnect.OStreamFetcher;
 
 import java.io.IOException;
@@ -27,6 +29,7 @@ public class Controller extends AppCompatActivity {
     private OStreamFetcher bleStrFet;
     private static final String LEFT_CHANGE_DIR_KEY = "LEFT_CHANGE";
     private static final String RIGHT_CHANGE_DIR_KEY = "RIGHT_CHANGE";
+    private static final String THRESH_HOLD = "THRESH_HOLD";
     
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,27 +55,11 @@ public class Controller extends AppCompatActivity {
         servo_first = new SeekbarWrapper(findViewById(R.id.servo1), Commands.SERVO_FIRST, oStreamR);
         servo_second = new SeekbarWrapper(findViewById(R.id.servo2), Commands.SERVO_SECOND, oStreamR);
         servo_third = new SeekbarWrapper(findViewById(R.id.servo3), Commands.SERVO_THIRD, oStreamR);
-        leftJoy = new JoystickWrapper(findViewById(R.id.leftJoy), oStreamR, findViewById(R.id.leftJoyInform), Commands.LEFT, this);
-        rightJoy = new JoystickWrapper(findViewById(R.id.rightJoy), oStreamR, findViewById(R.id.rightJoyInform), Commands.RIGHT, this);
-        final Switch leftSwitch = findViewById(R.id.leftChangeDir);
-        leftSwitch.setOnCheckedChangeListener((buttonView, isChecked) -> {
-            getPreferences(MODE_PRIVATE).edit().putBoolean(LEFT_CHANGE_DIR_KEY, isChecked).apply();
-        });
-        final boolean leftChange = getPreferences(MODE_PRIVATE).getBoolean(LEFT_CHANGE_DIR_KEY, false);
-        final Switch rightSwitch = findViewById(R.id.rightChangeDir);
-        rightSwitch.setOnCheckedChangeListener((buttonView, isChecked) -> {
-            getPreferences(MODE_PRIVATE).edit().putBoolean(RIGHT_CHANGE_DIR_KEY, isChecked).apply();
-        });
-        final boolean rightChange = getPreferences(MODE_PRIVATE).getBoolean(RIGHT_CHANGE_DIR_KEY, false);
-        if (leftChange) {
-            leftJoy.changeSign();
-            leftSwitch.toggle();
-        }
-        if (rightChange) {
-            rightJoy.changeSign();
-            rightSwitch.toggle();
-        }
-        
+        BehaviorParameter<Integer> threshHold = new IntSeekbarParameter(THRESH_HOLD, this, 0, findViewById(R.id.threshHold));
+        BehaviorParameter<Boolean> leftChangeDir = new BoolCheBarParameter(false, LEFT_CHANGE_DIR_KEY, this, findViewById(R.id.leftChangeDir));
+        leftJoy = new JoystickWrapper(findViewById(R.id.leftJoy), oStreamR, findViewById(R.id.leftJoyInform), Commands.LEFT, this, leftChangeDir, threshHold);
+        BehaviorParameter<Boolean> rightChangeDir = new BoolCheBarParameter(false, RIGHT_CHANGE_DIR_KEY, this, findViewById(R.id.rightChangeDir));
+        rightJoy = new JoystickWrapper(findViewById(R.id.rightJoy), oStreamR, findViewById(R.id.rightJoyInform), Commands.RIGHT, this, rightChangeDir, threshHold);
     }
     
     @Override
