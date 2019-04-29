@@ -40,7 +40,7 @@ public class JoystickWrapper {
             if (strength < 10) {
                 arg = 0;
             } else {
-                arg = (int) (((angle > 180) ? -1 : 1) * ((300 - threshHold.getValue()) * (abs(Math.sin(Math.toRadians(angle)) * strength / 100d))) + threshHold.getValue());
+                arg = (int) (((angle > 180) ? -1 : 1) * (((300 - threshHold.getValue()) * (abs(Math.sin(Math.toRadians(angle)) * strength / 100d))) + threshHold.getValue()));
             }
             inform.setText(String.valueOf(arg));
             commandSender.sendCommand(joystick.getContext(), String.valueOf(sign.getValue() ? -arg : arg));
