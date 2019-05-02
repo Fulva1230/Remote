@@ -7,17 +7,8 @@
         android:layout_height="match_parent"
         tools:context=".Controller"
         android:id="@+id/controller"
-        android:background="@android:color/darker_gray"
+        android:background="@android:color/background_light"
         >
-
-    <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/servo2_inform"
-            app:layout_constraintStart_toStartOf="@+id/servo2"
-            app:layout_constraintEnd_toEndOf="@+id/servo2"
-            app:layout_constraintBottom_toTopOf="@+id/servo2"
-            android:layout_marginBottom="70dp"/>
 
     <io.github.controlwear.virtual.joystick.android.JoystickView
             android:layout_width="190dp"
@@ -111,8 +102,8 @@
             app:layout_constraintTop_toTopOf="@+id/servo1"
             android:progress="0"
             android:saveEnabled="true"
-            android:min="-180"
-            android:max="180"
+            android:min="-360"
+            android:max="360"
             />
 
     <SeekBar
@@ -125,8 +116,8 @@
             app:layout_constraintEnd_toEndOf="@+id/servo2"
             android:layout_marginEnd="100dp"
             android:saveEnabled="true"
-            android:max="180"
-            android:min="-180"/>
+            android:max="360"
+            android:min="-360"/>
 
     <Switch
             android:text="@string/LEFT_DIR"
@@ -158,6 +149,16 @@
     <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:id="@+id/servo2_inform"
+            app:layout_constraintStart_toStartOf="@+id/servo2"
+            app:layout_constraintEnd_toEndOf="@+id/servo2"
+            app:layout_constraintBottom_toTopOf="@+id/servo2"
+            android:layout_marginBottom="55dp"
+            android:text="0"/>
+
+    <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:id="@+id/servo3_inform"
             app:layout_constraintStart_toStartOf="@+id/servo3"
             app:layout_constraintEnd_toEndOf="@+id/servo3"
@@ -171,7 +172,8 @@
             android:id="@+id/servo2r"
             app:layout_constraintStart_toStartOf="@+id/servo2"
             app:layout_constraintEnd_toEndOf="@+id/servo2"
-            app:layout_constraintBottom_toBottomOf="@+id/servo2_inform"/>
+            app:layout_constraintBottom_toBottomOf="@+id/servo2_inform"
+            android:layout_marginBottom="16dp"/>
 
     <Button
             android:text="FORWARD"
