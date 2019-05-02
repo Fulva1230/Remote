@@ -14,6 +14,7 @@ import com.noxdawn.remote.btconnect.OStreamFetcher;
 
 import java.io.IOException;
 import java.io.OutputStream;
+import java.util.Optional;
 import java.util.concurrent.atomic.AtomicReference;
 
 import static android.widget.Toast.LENGTH_SHORT;
@@ -24,9 +25,9 @@ public class Controller extends AppCompatActivity {
     
     private JoystickWrapper leftJoy;
     private JoystickWrapper rightJoy;
-    private SeekbarWrapper servo_first;
-    private SeekbarWrapper servo_second;
-    private SeekbarWrapper servo_third;
+    private SeekbarCommandSender servo_first;
+    private SeekbarCommandSender servo_second;
+    private SeekbarCommandSender servo_third;
     private OStreamFetcher bleStrFet;
     private static final String LEFT_CHANGE_DIR_KEY = "LEFT_CHANGE";
     private static final String RIGHT_CHANGE_DIR_KEY = "RIGHT_CHANGE";
@@ -55,9 +56,9 @@ public class Controller extends AppCompatActivity {
     }
     
     private void controllViewInit(AtomicReference<OutputStream> oStreamR) {
-        servo_first = new SeekbarWrapper(findViewById(R.id.servo1), Commands.SERVO_FIRST, oStreamR);
-        servo_second = new SeekbarWrapper(findViewById(R.id.servo2), Commands.SERVO_SECOND, oStreamR);
-        servo_third = new SeekbarWrapper(findViewById(R.id.servo3), Commands.SERVO_THIRD, oStreamR);
+        servo_first = new SeekbarCommandSender(findViewById(R.id.servo1), Commands.SERVO_FIRST, oStreamR, Optional.of(findViewById(R.id.servo1_inform)));
+        servo_second = new SeekbarCommandSender(findViewById(R.id.servo2), Commands.SERVO_SECOND, oStreamR, Optional.of(findViewById(R.id.servo2_inform)));
+        servo_third = new SeekbarCommandSender(findViewById(R.id.servo3), Commands.SERVO_THIRD, oStreamR, Optional.of(findViewById(R.id.servo3_inform)));
         BehaviorParameter<Integer> threshHold = new IntSeekbarParameter(THRESH_HOLD, this, 0, findViewById(R.id.threshHold));
         BehaviorParameter<Boolean> leftChangeDir = new BoolCheBarParameter(false, LEFT_CHANGE_DIR_KEY, this, findViewById(R.id.leftChangeDir));
         leftJoy = new JoystickWrapper(findViewById(R.id.leftJoy), oStreamR, findViewById(R.id.leftJoyInform), Commands.LEFT, this, leftChangeDir, threshHold);

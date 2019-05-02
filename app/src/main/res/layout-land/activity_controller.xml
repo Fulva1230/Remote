@@ -9,6 +9,15 @@
         android:id="@+id/controller"
         android:background="@android:color/darker_gray">
 
+    <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/servo2_inform"
+            app:layout_constraintStart_toStartOf="@+id/servo2"
+            app:layout_constraintEnd_toEndOf="@+id/servo2"
+            app:layout_constraintBottom_toTopOf="@+id/servo2"
+            android:layout_marginBottom="70dp"/>
+
     <io.github.controlwear.virtual.joystick.android.JoystickView
             android:layout_width="190dp"
             android:layout_height="197dp"
@@ -88,7 +97,7 @@
             app:layout_constraintBottom_toBottomOf="@+id/rightJoy"
             app:layout_constraintVertical_bias="0.482"
             app:layout_constraintEnd_toEndOf="@+id/rightJoy"
-            android:layout_marginEnd="120dp"
+            android:layout_marginEnd="150dp"
             android:progress="0"
             android:saveEnabled="true"/>
 
@@ -98,7 +107,7 @@
             android:id="@+id/servo2"
             android:rotation="90"
             app:layout_constraintEnd_toEndOf="@+id/servo1"
-            android:layout_marginEnd="50dp"
+            android:layout_marginEnd="100dp"
             app:layout_constraintTop_toTopOf="@+id/servo1"
             android:progress="50"
             android:saveEnabled="true"/>
@@ -111,7 +120,7 @@
             app:layout_constraintTop_toTopOf="@+id/servo1"
             android:progress="50"
             app:layout_constraintEnd_toEndOf="@+id/servo2"
-            android:layout_marginEnd="50dp"
+            android:layout_marginEnd="100dp"
             android:saveEnabled="true"/>
 
     <Switch
@@ -131,5 +140,23 @@
             app:layout_constraintEnd_toEndOf="@+id/rightJoy"
             app:layout_constraintBottom_toTopOf="@+id/rightJoyInform"
             android:saveEnabled="true"/>
+
+    <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/servo1_inform"
+            app:layout_constraintStart_toStartOf="@+id/servo1"
+            app:layout_constraintBottom_toTopOf="@+id/servo1"
+            android:layout_marginBottom="70dp"
+            app:layout_constraintEnd_toEndOf="@+id/servo1"/>
+
+    <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/servo3_inform"
+            app:layout_constraintStart_toStartOf="@+id/servo3"
+            app:layout_constraintEnd_toEndOf="@+id/servo3"
+            app:layout_constraintBottom_toTopOf="@+id/servo3"
+            android:layout_marginBottom="70dp"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
