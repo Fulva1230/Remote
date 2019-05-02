@@ -21,7 +21,7 @@ public class CommandSender {
     
     public void sendCommand(Context context, @Nullable String... args) {
         StringBuilder arg = null;
-        if (args != null) {
+        if (args != null && args.length != 0) {
             arg = new StringBuilder();
             for (int i = 0; i < args.length - 1; i++) {
                 arg.append(args[i]).append(":");

@@ -21,7 +21,7 @@
     <io.github.controlwear.virtual.joystick.android.JoystickView
             android:layout_width="190dp"
             android:layout_height="197dp"
-            app:JV_buttonColor="@android:color/background_light"
+            app:JV_buttonColor="@android:color/background_dark"
             app:JV_buttonSizeRatio="15%"
             app:JV_borderColor="#87CEFF"
             app:JV_backgroundColor="#87CEEB"
@@ -50,7 +50,7 @@
     <io.github.controlwear.virtual.joystick.android.JoystickView
             android:layout_width="190dp"
             android:layout_height="356dp"
-            app:JV_buttonColor="@android:color/background_light"
+            app:JV_buttonColor="@android:color/background_dark"
             app:JV_buttonSizeRatio="15%"
             app:JV_borderColor="#87CEFF"
             app:JV_backgroundColor="#87CEEB"
@@ -93,13 +93,12 @@
             android:id="@+id/servo1"
             android:rotation="90"
             android:layout_width="150dp"
-            app:layout_constraintTop_toTopOf="@+id/rightJoy"
-            app:layout_constraintBottom_toBottomOf="@+id/rightJoy"
-            app:layout_constraintVertical_bias="0.482"
             app:layout_constraintEnd_toEndOf="@+id/rightJoy"
             android:layout_marginEnd="150dp"
             android:progress="0"
-            android:saveEnabled="true"/>
+            android:saveEnabled="true"
+            android:layout_marginBottom="60dp"
+            app:layout_constraintBottom_toBottomOf="parent"/>
 
     <SeekBar
             android:layout_width="150dp"
@@ -112,7 +111,8 @@
             android:progress="0"
             android:saveEnabled="true"
             android:min="-180"
-            android:max="180"/>
+            android:max="180"
+            />
 
     <SeekBar
             android:layout_width="150dp"
@@ -162,5 +162,35 @@
             app:layout_constraintEnd_toEndOf="@+id/servo3"
             app:layout_constraintBottom_toTopOf="@+id/servo3"
             android:layout_marginBottom="70dp"/>
+
+    <Button
+            android:text="reset"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/servo2r"
+            app:layout_constraintStart_toStartOf="@+id/servo2"
+            app:layout_constraintEnd_toEndOf="@+id/servo2"
+            app:layout_constraintBottom_toBottomOf="@+id/servo2_inform"/>
+
+    <Button
+            android:text="FORWARD"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/servo2f"
+            app:layout_constraintStart_toStartOf="@+id/servo2r"
+            app:layout_constraintEnd_toEndOf="@+id/servo2r"
+            android:layout_marginBottom="2dp"
+            app:layout_constraintBottom_toTopOf="@+id/servo2r"/>
+
+    <Button
+            android:text="BACKWARD"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/servo2b"
+            app:layout_constraintStart_toStartOf="@+id/servo2f"
+            app:layout_constraintEnd_toEndOf="@+id/servo2f"
+            android:layout_marginBottom="2dp"
+            app:layout_constraintBottom_toTopOf="@+id/servo2f"
+            android:textSize="14sp"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

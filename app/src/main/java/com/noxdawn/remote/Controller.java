@@ -58,6 +58,9 @@ public class Controller extends AppCompatActivity {
     private void controllViewInit(AtomicReference<OutputStream> oStreamR) {
         servo_first = new SeekbarCommandSender(findViewById(R.id.servo1), Commands.SERVO_FIRST, oStreamR, Optional.of(findViewById(R.id.servo1_inform)));
         servo_second = new SeekbarCommandSender(findViewById(R.id.servo2), Commands.SERVO_SECOND, oStreamR, Optional.of(findViewById(R.id.servo2_inform)));
+        findViewById(R.id.servo2r).setOnClickListener(new ButtonCommandSendListenerDacor(new ButtonResetSeekbarListener(findViewById(R.id.servo2)), "servo2r", oStreamR, this));
+        findViewById(R.id.servo2f).setOnClickListener(new ButtonSeekbarChangeListener(findViewById(R.id.servo2), 90));
+        findViewById(R.id.servo2b).setOnClickListener(new ButtonSeekbarChangeListener(findViewById(R.id.servo2), -90));
         servo_third = new SeekbarCommandSender(findViewById(R.id.servo3), Commands.SERVO_THIRD, oStreamR, Optional.of(findViewById(R.id.servo3_inform)));
         BehaviorParameter<Integer> threshHold = new IntSeekbarParameter(THRESH_HOLD, this, 0, findViewById(R.id.threshHold));
         BehaviorParameter<Boolean> leftChangeDir = new BoolCheBarParameter(false, LEFT_CHANGE_DIR_KEY, this, findViewById(R.id.leftChangeDir));
