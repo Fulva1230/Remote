@@ -35,7 +35,7 @@ public class CommandSender {
                 if (arg != null) {
                     message = String.format(Locale.getDefault(), "%s:%s;", identifier, arg.toString());
                 } else {
-                    message = identifier;
+                    message = String.format("%s;", identifier);
                 }
                 oStream.write(message.getBytes());
                 Log.d("command send:", message);
