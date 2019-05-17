@@ -85,14 +85,14 @@
             android:id="@+id/servo1"
             android:rotation="90"
             android:layout_width="150dp"
-            app:layout_constraintEnd_toEndOf="@+id/rightJoy"
-            android:layout_marginEnd="150dp"
-            android:progress="0"
+            android:progress="90"
             android:saveEnabled="true"
             android:layout_marginBottom="60dp"
             app:layout_constraintBottom_toBottomOf="parent"
             android:min="0"
-            android:max="180"/>
+            android:max="180"
+            android:layout_marginEnd="150dp"
+            app:layout_constraintEnd_toEndOf="@+id/rightJoy"/>
 
     <SeekBar
             android:layout_width="150dp"
@@ -100,13 +100,14 @@
             android:id="@+id/servo2"
             android:rotation="90"
             app:layout_constraintEnd_toEndOf="@+id/servo1"
-            android:layout_marginEnd="100dp"
+            android:layout_marginEnd="8dp"
             app:layout_constraintTop_toTopOf="@+id/servo1"
             android:progress="0"
             android:saveEnabled="true"
             android:min="-360"
             android:max="360"
-            />
+            android:layout_marginStart="8dp"
+            app:layout_constraintStart_toStartOf="@+id/servo3"/>
 
     <SeekBar
             android:layout_width="150dp"
@@ -115,11 +116,11 @@
             android:rotation="90"
             app:layout_constraintTop_toTopOf="@+id/servo1"
             android:progress="0"
-            app:layout_constraintEnd_toEndOf="@+id/servo2"
-            android:layout_marginEnd="100dp"
             android:saveEnabled="true"
             android:max="360"
-            android:min="-360"/>
+            android:min="-360"
+            android:layout_marginStart="150dp"
+            app:layout_constraintStart_toStartOf="@+id/leftJoy"/>
 
     <Switch
             android:text="@string/LEFT_DIR"
@@ -145,8 +146,9 @@
             android:id="@+id/servo1_inform"
             app:layout_constraintStart_toStartOf="@+id/servo1"
             app:layout_constraintBottom_toTopOf="@+id/servo1"
-            android:layout_marginBottom="70dp"
-            app:layout_constraintEnd_toEndOf="@+id/servo1"/>
+            android:layout_marginBottom="55dp"
+            app:layout_constraintEnd_toEndOf="@+id/servo1"
+            android:text="90"/>
 
     <TextView
             android:layout_width="wrap_content"
@@ -165,7 +167,8 @@
             app:layout_constraintStart_toStartOf="@+id/servo3"
             app:layout_constraintEnd_toEndOf="@+id/servo3"
             app:layout_constraintBottom_toTopOf="@+id/servo3"
-            android:layout_marginBottom="55dp"/>
+            android:layout_marginBottom="55dp"
+            android:text="0"/>
 
     <Button
             android:text="reset"
