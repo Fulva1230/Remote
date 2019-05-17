@@ -165,7 +165,7 @@
             app:layout_constraintStart_toStartOf="@+id/servo3"
             app:layout_constraintEnd_toEndOf="@+id/servo3"
             app:layout_constraintBottom_toTopOf="@+id/servo3"
-            android:layout_marginBottom="70dp"/>
+            android:layout_marginBottom="55dp"/>
 
     <Button
             android:text="reset"
@@ -176,6 +176,16 @@
             app:layout_constraintEnd_toEndOf="@+id/servo2"
             app:layout_constraintBottom_toBottomOf="@+id/servo2_inform"
             android:layout_marginBottom="16dp"/>
+
+    <Button
+            android:text="reset"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/servo3r"
+            android:layout_marginBottom="16dp"
+            app:layout_constraintBottom_toBottomOf="@+id/servo3_inform"
+            app:layout_constraintEnd_toEndOf="@+id/servo3"
+            app:layout_constraintStart_toStartOf="@+id/servo3"/>
 
     <Button
             android:text="FORWARD"
