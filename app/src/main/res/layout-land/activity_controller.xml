@@ -81,6 +81,16 @@
             android:saveEnabled="true"/>
 
     <SeekBar
+            android:layout_width="150dp"
+            android:layout_height="33dp"
+            android:id="@+id/upperLimit"
+            app:layout_constraintStart_toStartOf="@+id/leftJoy"
+            android:max="255"
+            android:saveEnabled="true"
+            app:layout_constraintBottom_toTopOf="@+id/threshHold"
+            android:progress="255"/>
+
+    <SeekBar
             android:layout_height="20dp"
             android:id="@+id/servo1"
             android:rotation="90"

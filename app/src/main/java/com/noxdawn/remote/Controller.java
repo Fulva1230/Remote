@@ -31,6 +31,7 @@ public class Controller extends AppCompatActivity {
     private static final String LEFT_CHANGE_DIR_KEY = "LEFT_CHANGE";
     private static final String RIGHT_CHANGE_DIR_KEY = "RIGHT_CHANGE";
     private static final String THRESH_HOLD = "THRESH_HOLD";
+    private static final String UPPER_LIMIT_KEY = "UPPER_LIMIT";
     
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -62,11 +63,12 @@ public class Controller extends AppCompatActivity {
         findViewById(R.id.servo2b).setOnClickListener(new ButtonSeekbarChangeListener(findViewById(R.id.servo2), -90));
         servo_third = new SeekbarCommandSender(findViewById(R.id.servo3), Commands.SERVO_THIRD, oStreamR, Optional.of(findViewById(R.id.servo3_inform)));
         findViewById(R.id.servo3r).setOnClickListener(new ButtonCommandSendListenerDacor(new ButtonResetSeekbarListener(findViewById(R.id.servo3)), "servo3r", oStreamR, this));
+        BehaviorParameter<Integer> upperLimit = new IntSeekbarParameter(UPPER_LIMIT_KEY, this, 255, findViewById(R.id.upperLimit));
         BehaviorParameter<Integer> threshHold = new IntSeekbarParameter(THRESH_HOLD, this, 0, findViewById(R.id.threshHold));
         BehaviorParameter<Boolean> leftChangeDir = new BoolCheBarParameter(false, LEFT_CHANGE_DIR_KEY, this, findViewById(R.id.leftChangeDir));
-        leftJoy = new JoystickWrapper(findViewById(R.id.leftJoy), oStreamR, findViewById(R.id.leftJoyInform), Commands.LEFT, this, leftChangeDir, threshHold);
+        leftJoy = new JoystickWrapper(findViewById(R.id.leftJoy), oStreamR, findViewById(R.id.leftJoyInform), Commands.LEFT, this, leftChangeDir, threshHold, upperLimit);
         BehaviorParameter<Boolean> rightChangeDir = new BoolCheBarParameter(false, RIGHT_CHANGE_DIR_KEY, this, findViewById(R.id.rightChangeDir));
-        rightJoy = new JoystickWrapper(findViewById(R.id.rightJoy), oStreamR, findViewById(R.id.rightJoyInform), Commands.RIGHT, this, rightChangeDir, threshHold);
+        rightJoy = new JoystickWrapper(findViewById(R.id.rightJoy), oStreamR, findViewById(R.id.rightJoyInform), Commands.RIGHT, this, rightChangeDir, threshHold, upperLimit);
     }
     
     @Override

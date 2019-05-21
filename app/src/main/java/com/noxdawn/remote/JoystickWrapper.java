@@ -16,34 +16,38 @@ public class JoystickWrapper {
     private final CommandSender commandSender;
     private final Activity activity;
     
-    public JoystickWrapper(JoystickView joystick, AtomicReference<OutputStream> oStreamR, TextView inform, String comString, Activity activity, BehaviorParameter<Boolean> sign, BehaviorParameter<Integer> threshHold) {
+    public JoystickWrapper(JoystickView joystick, AtomicReference<OutputStream> oStreamR, TextView inform, String comString, Activity activity, BehaviorParameter<Boolean> sign, BehaviorParameter<Integer> threshHold, BehaviorParameter<Integer> upperLimit) {
         this.joystick = joystick;
         this.inform = inform;
         this.activity = activity;
         this.commandSender = new CommandSender(comString, oStreamR);
         joystick.setEnabled(true);
-        joystick.setOnMoveListener(new OnMoveListener(sign, threshHold), 100);
+        joystick.setOnMoveListener(new OnMoveListener(sign, threshHold, upperLimit), 100);
     }
     
     private class OnMoveListener implements JoystickView.OnMoveListener {
         private final BehaviorParameter<Boolean> sign;
         private final BehaviorParameter<Integer> threshHold;
+        private final BehaviorParameter<Integer> upperLimit;
     
-        OnMoveListener(BehaviorParameter<Boolean> sign, BehaviorParameter<Integer> threshHold) {
+        OnMoveListener(BehaviorParameter<Boolean> sign, BehaviorParameter<Integer> threshHold, BehaviorParameter<Integer> upperLimit) {
             this.sign = sign;
             this.threshHold = threshHold;
+            this.upperLimit = upperLimit;
         }
         
         @Override
         public void onMove(int angle, int strength) {
-            int arg;
-            if (strength < 10) {
-                arg = 0;
-            } else {
-                arg = (int) (((angle > 180) ? -1 : 1) * (((300 - threshHold.getValue()) * (abs(Math.sin(Math.toRadians(angle)) * strength / 100d))) + threshHold.getValue()));
+            if (upperLimit.getValue() > threshHold.getValue()) {
+                int arg;
+                if (strength < 10) {
+                    arg = 0;
+                } else {
+                    arg = (int) (((angle > 180) ? -1 : 1) * (((upperLimit.getValue() - threshHold.getValue()) * (abs(Math.sin(Math.toRadians(angle)) * strength / 100d))) + threshHold.getValue()));
+                }
+                inform.setText(String.valueOf(arg));
+                commandSender.sendCommand(joystick.getContext(), String.valueOf(sign.getValue() ? -arg : arg));
             }
-            inform.setText(String.valueOf(arg));
-            commandSender.sendCommand(joystick.getContext(), String.valueOf(sign.getValue() ? -arg : arg));
         }
     }
     
