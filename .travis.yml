@@ -1,8 +1,8 @@
 language: android
 env:
   global:
-    - ANDROID_API=28
-    - ANDROID_BUILD_TOOLS=27.0.3
+    - ANDROID_API=26
+    - ANDROID_BUILD_TOOLS=26.0.2
     - ADB_INSTALL_TIMEOUT=5
     - secure: HCui4/MGqIQCInfMd/B1RB90/NWmPttyv6lrVdgy4HOVgGNMoM4RQHWD42FEI+SDNQARvLGTJRLQhTsCNCIh8iUSEPG389fjjG3nsWpTaoHOpFZ28hHPnxkGdtQM4RoXZYfyKjElbv634CsvJ6WE2HNQnQ45x07dr1xUOYi+vJxZXnHziJvLaDV9Y0KmUjVVV3Kf2JdD/zsmcAHsD5WFc+/1elOwJfKTgKMQGlo0gKbk13S4VezMcR5oDAaFUwCGkVloGB977yza1I6sbH0GwNKmGPGxKHrNzpxFaQQmQhEo1piHzWQuBCwdS+UfUTWQSzw8xtKpbHMxz3EST6PtVTdWzr85R5JjaGqUu2r7tfgLfct8NzFYvPlDU9FoJYW9RhaAafxnwwZQw6+bSxPNBlBtjWa5kBxMsGOqKYmf+7kOea/x2IquoBOU3JTjjbvJUZJIsblSgkApuyQ5ze1ziQogPgSgyUHw4iJ0wOeWV6jI57KZdtdFPn0dX0dTTFIZtzBWiAI9TzGqkKzoZg8ETC8TsJmtBzoNal6pKR1dZQKDxLiHQW1/OkXdgbniUsadyTpPoBqLcu7T6wLConptS8TYzxITdOzTdFhynJ1ioZsLp8HrozPu/qV3nWOWMfBj+Sk1ExUBfps2y+8xiASC6OnR7z2XIuNZqpeVmuml2D4=
     - secure: H77ARoQcItLD8i8PGKSEMax+HaXtYPk48RaTuu/In1Jxx3r/gaweGVaAFrQHYi5fIV3PuSCE/8XMnAlZVLIODf98p3G+p4lUcZ758kbtYa4+XaQ1BmnJBooQMYGrL6WuGkUymgSPJPR/rtFMvy3C64CO5V9zh+lrUYyQD6FASW1Q3a6ygEOvfbH5wDembksUFjbbmOzBBrrnZats84w5Hi60xG8jY6J1KxCjzef4J1d6VKu57KMWsKiA40av68E1oyfkEVEpaG27MpzIECsPwqdvXptSNJ1t/ewUOCzN6iPtOgRL252vi9a8xP5obiEUY9OmQrrD8S6kiH0n7atLn7hJPApp+WuYJuB4o3l1oyIBkEhkSJBM5QEnMtlNpT/6dCnUVFua7/OpXTE8mCBde2dTz5DxYsfZ5XCs5K0cY1zRTtlYaNU684RgmcDwBLVabCwXcQVSdTmmEmR2MBe5eI2DiHpbbvCiOw6Eelp0g5LfK4Covr3MZ6SvjwYc0dsW0lglEJ2ZYGM2JWpnwZ1BsF7bYdN6zbA3+pzE7kX28hMx/nwifpS5rrK91+KquFadTdx+wyS1ZsBgMVkIOra02Ai9YXgdro48Y3qclVRS3xV0orEv77IscwE3mvsbZGQDpJHr25m9jRpQYdAq6qnUho927KIuxbFy8P7G/wybNXQ=
@@ -16,8 +16,8 @@ cache:
     - "$HOME/.android/build-cache"
 android:
   components:
-    - Build-Tools-27.0.3
-    - android-28
+    - Build-Tools-26.0.2
+    - android-26
 script:
   - "./gradlew assembleRelease"
 before_install:
