@@ -1,7 +1,7 @@
 language: android
 env:
   global:
-    - ANDROID_API=26
+    - ANDROID_API=28
     - ANDROID_BUILD_TOOLS=28.0.3
     - ADB_INSTALL_TIMEOUT=5
     - secure: HCui4/MGqIQCInfMd/B1RB90/NWmPttyv6lrVdgy4HOVgGNMoM4RQHWD42FEI+SDNQARvLGTJRLQhTsCNCIh8iUSEPG389fjjG3nsWpTaoHOpFZ28hHPnxkGdtQM4RoXZYfyKjElbv634CsvJ6WE2HNQnQ45x07dr1xUOYi+vJxZXnHziJvLaDV9Y0KmUjVVV3Kf2JdD/zsmcAHsD5WFc+/1elOwJfKTgKMQGlo0gKbk13S4VezMcR5oDAaFUwCGkVloGB977yza1I6sbH0GwNKmGPGxKHrNzpxFaQQmQhEo1piHzWQuBCwdS+UfUTWQSzw8xtKpbHMxz3EST6PtVTdWzr85R5JjaGqUu2r7tfgLfct8NzFYvPlDU9FoJYW9RhaAafxnwwZQw6+bSxPNBlBtjWa5kBxMsGOqKYmf+7kOea/x2IquoBOU3JTjjbvJUZJIsblSgkApuyQ5ze1ziQogPgSgyUHw4iJ0wOeWV6jI57KZdtdFPn0dX0dTTFIZtzBWiAI9TzGqkKzoZg8ETC8TsJmtBzoNal6pKR1dZQKDxLiHQW1/OkXdgbniUsadyTpPoBqLcu7T6wLConptS8TYzxITdOzTdFhynJ1ioZsLp8HrozPu/qV3nWOWMfBj+Sk1ExUBfps2y+8xiASC6OnR7z2XIuNZqpeVmuml2D4=
@@ -17,11 +17,7 @@ before_cache:
 android:
   components:
     - Build-Tools-28.0.3
-    - android-26
-  licenses:
-    - 'android-sdk-preview-license-52d11cd2'
-    - 'android-sdk-license-.+'
-    - 'google-gdk-license-.+'
+    - android-28
 script:
   - "./gradlew assembleRelease"
 before_install:
