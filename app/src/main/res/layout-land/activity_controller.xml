@@ -114,8 +114,8 @@
             app:layout_constraintTop_toTopOf="@+id/servo1"
             android:progress="0"
             android:saveEnabled="true"
-            android:min="-360"
-            android:max="360"
+            android:min="-180"
+            android:max="180"
             android:layout_marginStart="8dp"
             app:layout_constraintStart_toStartOf="@+id/servo3"/>
 
