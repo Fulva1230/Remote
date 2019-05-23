@@ -18,6 +18,10 @@ android:
   components:
     - Build-Tools-26.0.2
     - android-26
+  licenses:
+    - 'android-sdk-preview-license-52d11cd2'
+    - 'android-sdk-license-.+'
+    - 'google-gdk-license-.+'
 script:
   - "./gradlew assembleRelease"
 before_install:
