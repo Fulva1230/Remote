@@ -20,8 +20,6 @@ android:
     - Build-Tools-27.0.3
     - Build-Tools-28.0.3
     - android-26
-    - android-27
-    - android-28
 script:
   - "./gradlew assembleRelease"
 before_install:
