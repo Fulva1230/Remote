@@ -6,13 +6,15 @@ import android.widget.SeekBar;
 
 public class ButtonResetSeekbarListener implements Button.OnClickListener {
     private final SeekBar seekbar;
+    private final int resetValue;
     
-    public ButtonResetSeekbarListener(SeekBar seekbar) {
+    public ButtonResetSeekbarListener(SeekBar seekbar, int resetValue) {
         this.seekbar = seekbar;
+        this.resetValue = resetValue;
     }
     
     @Override
     public void onClick(View v) {
-        seekbar.setProgress(0);
+        seekbar.setProgress(resetValue);
     }
 }
