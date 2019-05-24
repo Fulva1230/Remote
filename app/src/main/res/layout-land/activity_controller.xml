@@ -112,9 +112,8 @@
             app:layout_constraintEnd_toEndOf="@+id/servo1"
             android:layout_marginEnd="8dp"
             app:layout_constraintTop_toTopOf="@+id/servo1"
-            android:progress="0"
+            android:progress="180"
             android:saveEnabled="true"
-            android:min="-360"
             android:max="360"
             android:layout_marginStart="8dp"
             app:layout_constraintStart_toStartOf="@+id/servo3"/>
@@ -125,12 +124,12 @@
             android:id="@+id/servo3"
             android:rotation="90"
             app:layout_constraintTop_toTopOf="@+id/servo1"
-            android:progress="0"
+            android:progress="360"
             android:saveEnabled="true"
-            android:max="360"
-            android:min="-360"
+            android:max="720"
             android:layout_marginStart="150dp"
             app:layout_constraintStart_toStartOf="@+id/leftJoy"/>
+
 
     <Switch
             android:text="@string/LEFT_DIR"
