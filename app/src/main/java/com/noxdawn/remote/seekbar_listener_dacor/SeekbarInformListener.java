@@ -1,4 +1,4 @@
-package com.noxdawn.remote;
+package com.noxdawn.remote.seekbar_listener_dacor;
 
 import android.widget.SeekBar;
 import android.widget.TextView;

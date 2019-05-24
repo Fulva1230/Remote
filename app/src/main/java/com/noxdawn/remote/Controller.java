@@ -11,10 +11,12 @@ import com.noxdawn.remote.behaviorparameter.BehaviorParameter;
 import com.noxdawn.remote.behaviorparameter.BoolCheBarParameter;
 import com.noxdawn.remote.behaviorparameter.IntSeekbarParameter;
 import com.noxdawn.remote.btconnect.OStreamFetcher;
+import com.noxdawn.remote.seekbar_listener_dacor.SeekbarCommandSendListenerDacor;
+import com.noxdawn.remote.seekbar_listener_dacor.SeekbarInformListener;
+import com.noxdawn.remote.seekbar_listener_dacor.SeekbarMappingListenerDacor;
 
 import java.io.IOException;
 import java.io.OutputStream;
-import java.util.Optional;
 import java.util.concurrent.atomic.AtomicReference;
 
 import static android.widget.Toast.LENGTH_SHORT;
@@ -57,7 +59,7 @@ public class Controller extends AppCompatActivity {
     }
     
     private void controllViewInit(AtomicReference<OutputStream> oStreamR) {
-        servo_first = new SeekbarCommandSender(findViewById(R.id.servo1), Commands.SERVO_FIRST, oStreamR, Optional.of(findViewById(R.id.servo1_inform)));
+        ((SeekBar) findViewById(R.id.servo1)).setOnSeekBarChangeListener(new SeekbarCommandSendListenerDacor(new SeekbarInformListener(findViewById(R.id.servo1_inform)), Commands.SERVO_FIRST, oStreamR));
         ((SeekBar) findViewById(R.id.servo2)).setOnSeekBarChangeListener(new SeekbarMappingListenerDacor(-180, 180, new SeekbarCommandSendListenerDacor(new SeekbarInformListener(findViewById(R.id.servo2_inform)), Commands.SERVO_SECOND, oStreamR)));
         findViewById(R.id.servo2r).setOnClickListener(new ButtonCommandSendListenerDacor(new ButtonResetSeekbarListener(findViewById(R.id.servo2), 180), "servo2r", oStreamR, this));
         findViewById(R.id.servo2f).setOnClickListener(new ButtonSeekbarChangeListener(findViewById(R.id.servo2), 90));

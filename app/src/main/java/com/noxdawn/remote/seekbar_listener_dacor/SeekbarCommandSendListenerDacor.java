@@ -1,6 +1,7 @@
-package com.noxdawn.remote;
+package com.noxdawn.remote.seekbar_listener_dacor;
 
 import android.widget.SeekBar;
+import com.noxdawn.remote.CommandSender;
 
 import java.io.OutputStream;
 import java.util.concurrent.atomic.AtomicReference;
