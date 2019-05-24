@@ -74,7 +74,7 @@
     <SeekBar
             android:layout_width="150dp"
             android:layout_height="33dp"
-            android:id="@+id/threshHold"
+            android:id="@+id/leftThreshold"
             app:layout_constraintStart_toStartOf="@+id/leftJoy"
             app:layout_constraintBottom_toTopOf="@+id/leftChangeDir"
             android:max="254"
@@ -83,12 +83,31 @@
     <SeekBar
             android:layout_width="150dp"
             android:layout_height="33dp"
-            android:id="@+id/upperLimit"
+            android:id="@+id/rightThreshold"
+            android:max="254"
+            android:saveEnabled="true"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintBottom_toTopOf="@+id/rightChangeDir"/>
+
+    <SeekBar
+            android:layout_width="150dp"
+            android:layout_height="33dp"
+            android:id="@+id/leftUpperLimit"
             app:layout_constraintStart_toStartOf="@+id/leftJoy"
             android:max="255"
             android:saveEnabled="true"
-            app:layout_constraintBottom_toTopOf="@+id/threshHold"
+            app:layout_constraintBottom_toTopOf="@+id/leftThreshold"
             android:progress="255"/>
+
+    <SeekBar
+            android:layout_width="150dp"
+            android:layout_height="33dp"
+            android:id="@+id/rightUpperLimit"
+            android:max="255"
+            android:saveEnabled="true"
+            android:progress="255"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintBottom_toTopOf="@+id/rightThreshold"/>
 
     <SeekBar
             android:layout_height="20dp"
