@@ -61,11 +61,15 @@ public class Controller extends AppCompatActivity {
     }
     
     private void controllViewInit(AtomicReference<OutputStream> oStreamR) {
-        ((SeekBar) findViewById(R.id.servo1)).setOnSeekBarChangeListener(new SeekbarCommandSendListenerDacor(new SeekbarInformListener(findViewById(R.id.servo1_inform)), Commands.SERVO_FIRST, oStreamR));
+        SeekBar servo1 = findViewById(R.id.servo1);
+        servo1.setOnSeekBarChangeListener(new SeekbarCommandSendListenerDacor(new SeekbarInformListener(findViewById(R.id.servo1_inform)), Commands.SERVO_FIRST, oStreamR));
+        findViewById(R.id.servo1_common1).setOnClickListener(new ButtonResetSeekbarListener(servo1, 10));
+        
         ((SeekBar) findViewById(R.id.servo2)).setOnSeekBarChangeListener(new SeekbarMappingListenerDacor(-180, 180, new SeekbarCommandSendListenerDacor(new SeekbarInformListener(findViewById(R.id.servo2_inform)), Commands.SERVO_SECOND, oStreamR)));
         findViewById(R.id.servo2r).setOnClickListener(new ButtonCommandSendListenerDacor(new ButtonResetSeekbarListener(findViewById(R.id.servo2), 180), "servo2r", oStreamR, this));
         findViewById(R.id.servo2f).setOnClickListener(new ButtonSeekbarChangeListener(findViewById(R.id.servo2), 90));
         findViewById(R.id.servo2b).setOnClickListener(new ButtonSeekbarChangeListener(findViewById(R.id.servo2), -90));
+    
         ((SeekBar) findViewById(R.id.servo3)).setOnSeekBarChangeListener(new SeekbarMappingListenerDacor(-360, 360, new SeekbarCommandSendListenerDacor(new SeekbarInformListener(findViewById(R.id.servo3_inform)), Commands.SERVO_THIRD, oStreamR)));
         findViewById(R.id.servo3r).setOnClickListener(new ButtonCommandSendListenerDacor(new ButtonResetSeekbarListener(findViewById(R.id.servo3), 360), "servo3r", oStreamR, this));
         //start init left joystick
