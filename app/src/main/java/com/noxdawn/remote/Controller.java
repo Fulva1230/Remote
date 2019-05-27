@@ -63,6 +63,7 @@ public class Controller extends AppCompatActivity {
     private void controllViewInit(AtomicReference<OutputStream> oStreamR) {
         SeekBar servo1 = findViewById(R.id.servo1);
         servo1.setOnSeekBarChangeListener(new SeekbarCommandSendListenerDacor(new SeekbarInformListener(findViewById(R.id.servo1_inform)), Commands.SERVO_FIRST, oStreamR));
+        findViewById(R.id.servo1_common2).setOnClickListener(new ButtonResetSeekbarListener(servo1, 55));
         findViewById(R.id.servo1_common1).setOnClickListener(new ButtonResetSeekbarListener(servo1, 10));
         
         ((SeekBar) findViewById(R.id.servo2)).setOnSeekBarChangeListener(new SeekbarMappingListenerDacor(-180, 180, new SeekbarCommandSendListenerDacor(new SeekbarInformListener(findViewById(R.id.servo2_inform)), Commands.SERVO_SECOND, oStreamR)));

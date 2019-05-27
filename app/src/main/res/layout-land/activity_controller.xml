@@ -113,10 +113,10 @@
             android:layout_height="20dp"
             android:id="@+id/servo1"
             android:rotation="90"
-            android:layout_width="250dp"
+            android:layout_width="180dp"
             android:progress="90"
             android:saveEnabled="true"
-            android:layout_marginBottom="110dp"
+            android:layout_marginBottom="80dp"
             app:layout_constraintBottom_toBottomOf="parent"
             android:min="0"
             android:max="160"
@@ -174,7 +174,7 @@
             android:id="@+id/servo1_inform"
             app:layout_constraintStart_toStartOf="@+id/servo1"
             app:layout_constraintBottom_toTopOf="@+id/servo1"
-            android:layout_marginBottom="110dp"
+            android:layout_marginBottom="80dp"
             app:layout_constraintEnd_toEndOf="@+id/servo1"
             android:text="90"/>
 
@@ -296,5 +296,14 @@
             app:layout_constraintEnd_toEndOf="@+id/servo1_inform"
             app:layout_constraintStart_toStartOf="@+id/servo1_inform"
             app:layout_constraintBottom_toTopOf="@+id/servo1_inform"/>
+
+    <Button
+            android:text="55"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/servo1_common2"
+            app:layout_constraintEnd_toEndOf="@+id/servo1_inform"
+            app:layout_constraintStart_toStartOf="@+id/servo1_inform"
+            app:layout_constraintBottom_toTopOf="@+id/servo1_common1"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
